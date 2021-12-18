@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module2"
+Attribute VB_Name = "Module1"
 Sub StockAnalysis():
     For Each ws In Worksheets
     
@@ -30,11 +30,12 @@ Sub StockAnalysis():
             Ticker = ws.Cells(i, 1).Value
             ws.Range("I" & Summary_Table_Row).Value = Ticker
             
-            Yearly_Change = ws.Cells(i, 6) - ws.Cells(i - i + 2, 3).Value
+            Yearly_Change = ws.Cells(i, 6).Value - ws.Cells(2, 3).Value
             ws.Range("J" & Summary_Table_Row).Value = Yearly_Change
             
-            'Yearly_Change = Cells(end of closing)-Cells(start of opening ).Value
-            'Range("J" & Summary_Table_Row).Value = Yearly_Change
+            Percent_Change = (Yearly_Change / ws.Cells(2, 3).Value)
+            ws.Range("K" & Summary_Table_Row).Value = Percent_Change * 100
+            
             
             Total_Stock = Total_Stock + ws.Cells(i, 7).Value
             ws.Range("L" & Summary_Table_Row).Value = Total_Stock
@@ -45,6 +46,8 @@ Sub StockAnalysis():
             End If
         
         Next i
+        
+        
         
         For i = 2 To LastRow
             If ws.Cells(i, 10).Value > 0 Then
@@ -63,25 +66,10 @@ Sub StockAnalysis():
         Next i
         
         
-        'If ws.Range("J2:J" & LastRow).Value > 0 Then
-           ' ws.Range("J2:J" & LastRow).Interior.ColorIndex = 4
-        'ElseIf ws.Range("J2:J" & LastRow).Value < 0 Then
-           ' ws.Range("J2:J" & LastRow).Interior.ColorIndex = 3
-        
-       ' End If
-        
-        'If ws.Range("k2" & LastRow).Value > 0 Then
-           ' ws.Range("k2" & LastRow).Interior.ColorIndex = 4
-        'ElseIf ws.Range("k2" & LastRow).Value < 0 Then
-            'ws.Range("k2" & LastRow).Interior.ColorIndex = 3
-        
-        'End If
         
             
         
       Next ws
-      
-    
-    
 
 End Sub
+
